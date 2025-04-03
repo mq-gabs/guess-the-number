@@ -7,6 +7,8 @@ import { translate } from "./lang/index.js"
 const sequence = genSequence()
 console.log({ sequence })
 
+document.title = translate("pageTitle")
+
 function App() {
   const [guesses, setGuesses] = useState([])
   const [endOfGame, setEndOfGame] = useState(false)

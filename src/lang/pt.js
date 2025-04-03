@@ -1,4 +1,5 @@
 export default {
+  pageTitle: "Adivinhe a sequência",
   guessTheNumber: "Adivinhe a sequência",
   correctValues: "Valores corretos",
   correctPositions: "Posições corretas",
