@@ -74,7 +74,7 @@ export default function InputWrapper({
   }
 
   return (
-    <div className="flex gap-4 justify-center">
+    <div className="flex gap-1 md:gap-4 justify-center">
       {Object.keys(values).map(key => (
         <Input
           key={key}

@@ -53,7 +53,7 @@ export default function Input({
       ref={ref}
       onKeyDown={handleKeyPressed}
       className={clsx({
-        [`p-4 text-[32px] text-center text-white bg-gray-600 outline-none rounded rounded-4 aspect-square focus:bg-blue-800 max-w-[100px] ${className}`]:true,
+        [`p-1 md:p-4 text-[16px] md:text-[32px] text-center text-white bg-gray-600 outline-none rounded rounded-4 aspect-square focus:bg-blue-800 max-w-[100px] w-full ${className}`]:true,
         [`bg-red-400 focus:bg-red-400 ${animationClassName}`]: !isValid
       })}
       value={value}
