@@ -7,13 +7,21 @@ export default function Input({
   setValue,
   active,
   onActive,
+  onBackspace,
   checkIsValid,
+  disabled = false,
+  className=""
 }) {
   const ref = useRef(null)
   const [isValid, setIsValid] = useState(true)
-  const [animationClassName, setAnimationClassName] = useState('');
+  const [animationClassName, setAnimationClassName] = useState("");
 
   const handleKeyPressed = ({ key }) => {
+    if (key === "Backspace") {
+      onBackspace()
+      return
+    }
+
     const num = Number(key)
     if (Number.isNaN(num)) return
 
@@ -41,11 +49,11 @@ export default function Input({
   return(
     <input
       readOnly
+      disabled={disabled}
       ref={ref}
-      type="number"
       onKeyDown={handleKeyPressed}
       className={clsx({
-        "p-4 text-[32px] text-center text-white bg-gray-600 outline-none rounded rounded-4 aspect-square focus:bg-blue-800 max-w-[100px]": true,
+        [`p-4 text-[32px] text-center text-white bg-gray-600 outline-none rounded rounded-4 aspect-square focus:bg-blue-800 max-w-[100px] ${className}`]:true,
         [`bg-red-400 focus:bg-red-400 ${animationClassName}`]: !isValid
       })}
       value={value}

@@ -8,8 +8,15 @@ const nextInput = {
   third: "fourth"
 }
 
+const prevInput = {
+  second: "first",
+  third: "second",
+  fourth: "third"
+}
+
 export default function InputWrapper({
   sequence,
+  handleAddGuess,
 }) {
   const [values, setValues] = useState({
     first: undefined,
@@ -19,9 +26,18 @@ export default function InputWrapper({
   })
   const [currentActive, setCurrentActive] = useState("first")
 
-  const submit = () => {
-    const result = evalSequence(sequence, Object.values(values))
-    console.log({ result })
+  const submit = (guess) => {
+    const result = evalSequence(sequence, Object.values(guess))
+    handleAddGuess({ ...result, values: guess })
+      setValues({
+        first: " ",
+        second: " ",
+        third: " ",
+        fourth: " ",
+      })
+    setTimeout(() => {
+      setCurrentActive("first")
+    }, 1);
   }
 
   const checkIsValid = (num) => {
@@ -29,10 +45,11 @@ export default function InputWrapper({
   }
 
   const handleSetValue = ({ key, value }) => {
-    setValues(prev => ({
-      ...prev,
+    const newValues = {
+      ...values,
       [key]: value
-    }))
+    }
+    setValues(newValues)
 
     if (key !== "fourth") {
       setTimeout(() => {
@@ -43,7 +60,17 @@ export default function InputWrapper({
 
     setCurrentActive(null)
 
-    submit();
+    submit(newValues);
+  }
+
+  const handleBackspace = () => {
+    if (currentActive !== "first") {
+      const newValues = { ...values }
+      newValues[currentActive] = " "
+      newValues[prevInput[currentActive]] = " "
+      setCurrentActive(prevInput[currentActive])
+      setValues(newValues)
+    }
   }
 
   return (
@@ -56,6 +83,7 @@ export default function InputWrapper({
           setValue={v => handleSetValue({ key, value: v })}
           active={currentActive === key}
           onActive={() => setCurrentActive(key)}
+          onBackspace={handleBackspace}
           checkIsValid={checkIsValid}
         />
       ))}
